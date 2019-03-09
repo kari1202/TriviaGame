@@ -59,10 +59,14 @@ var index = 0;
 var time;
 var answeredCorrect = 0;
 var answeredIncorrect = 0;
+var unanswered = 0;
 var questionVar;
 var correctAnswer;
 var correctChoice;
 var timeLeft = true;
+
+var audio = new Audio('../audio/office.mp3');
+audio.play();
 
 $("#start-btn").on("click",displayQA);
 $(document).on("click", "#answer-0", function() {
@@ -84,12 +88,10 @@ $(document).on("click", "#answer-3", function() {
 
 function displayQA() {
     $("#start-btn").hide();
-    startClock();
-    //$("#timer").text("Time Remaining: 00:15");
 
+    startClock();
     questionVar = triviaArr[index].question;
     $("#question").text(questionVar);
-
 
     for (i=0; i<triviaArr[index].choices.length; i++) {
         var name = triviaArr[index].choices[i];
@@ -98,11 +100,6 @@ function displayQA() {
         $(".answer-main").append(answerButton);
         console.log(answerButton);
     }
-
-    if (index > triviaArr.length) {
-        gameOver();
-    }
-
 }
 
 function startClock() {
@@ -143,7 +140,11 @@ function reset() {
     $("#answer-2").remove();
     $("#answer-3").remove();
 
-    setTimeout(displayQA,5000);
+    if (index >= triviaArr.length) {
+        gameOver();
+    } else {
+        setTimeout(displayQA,2000);
+    }
 }
 
 function count() {
@@ -161,14 +162,23 @@ function count() {
 }
 
 function timeUp() {
-    $("#question").text("Time's Up!!");
+    correctAnswer = triviaArr[index].answer;
+    correctChoice = triviaArr[index].choices[correctAnswer];
+    $("#question").text("Time's Up!!  The correct answer was: " + correctChoice);
+    unanswered++;
     clearInterval(intervalId);
     timeLeft = false;
+
     reset();
 }
 
 function gameOver() {
+
+    $("#timer").hide();
+    $("#start-btn").show();
     $("#question").text("Game Over!!  Here's how you did!");
-    console.log("Game Over");
+    $("#correct").html("<h4>Correct Answers: " + answeredCorrect + "</h4>")
+    $("#incorrect").html("<h4>Incorrect Answers: " + answeredIncorrect + "</h4>")
+    $("#unanswered").html("<h4>Unanswered: " + unanswered + "</h4>")
 
 }
