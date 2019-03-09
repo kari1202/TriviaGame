@@ -16,20 +16,23 @@
 
     <div class="main">
         <h1>The Office Trivia Game</h1>
-        <img src="assets/images/the_office_main.png" alt="the office" id="main-img" width="800" height="400"/img>>
+        <img src="assets/images/the_office_main.png" alt="the office" id="main-img" width="800" height="400"/img>
     </div>    
     <container class="questions-container">
         <div class="q-a">
+            <div id="timer"></div>
             <div class="question-main">
-                 <h2>Here is the question</h2>
+                 <div id="question"><h4></h4></div>
             </div>
             <div class="answer-main">
-                <button type="button" class="btn btn-primary btn-lg btn-block" id="answer-1">Question 1</button>
-                <button type="button" class="btn btn-primary btn-lg btn-block" id="answer-2">Question 2</button>
-                <button type="button" class="btn btn-primary btn-lg btn-block" id="answer-3">Question 3</button>
-                <button type="button" class="btn btn-primary btn-lg btn-block" id="answer-4">Question 4</button>
+                    <button type="button" class="btn btn-light" id="start-btn">Start Game</button>
             </div>
         </div>
     </container>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script type="text/javascript" src="assets/javascript/app.js"></script>
+
 </body>
 </html>

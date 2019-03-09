@@ -13,7 +13,7 @@ var triviaArr = [
     },
     {
         question: "Where do Jim and Pam share their first real kiss?",
-        choices: ["The roof", "Jim's desk", "The warehouse", "The parking lot"];
+        choices: ["The roof", "Jim's desk", "The warehouse", "The parking lot"],
         answer: 1
     },
     {
@@ -52,3 +52,115 @@ var triviaArr = [
         answer: 1
     }
 ]
+
+var intervalID;
+
+var index = 0;
+var time;
+var answeredCorrect = 0;
+var answeredIncorrect = 0;
+var questionVar;
+var correctAnswer;
+var correctChoice;
+var timeLeft = true;
+
+$("#start-btn").on("click",displayQA);
+$(document).on("click", "#answer-0", function() {
+    checkAnswer(0);
+})
+$(document).on("click", "#answer-1", function() {
+    checkAnswer(1);
+})
+$(document).on("click", "#answer-2", function() {
+    checkAnswer(2);
+})
+$(document).on("click", "#answer-3", function() {
+    checkAnswer(3);
+})
+
+
+
+
+
+function displayQA() {
+    $("#start-btn").hide();
+    startClock();
+    //$("#timer").text("Time Remaining: 00:15");
+
+    questionVar = triviaArr[index].question;
+    $("#question").text(questionVar);
+
+
+    for (i=0; i<triviaArr[index].choices.length; i++) {
+        var name = triviaArr[index].choices[i];
+        console.log(name);
+        var answerButton = '<button type="button" class="btn btn-primary btn-lg btn-block" id="answer-' + i + '">' + name + "</button>";
+        $(".answer-main").append(answerButton);
+        console.log(answerButton);
+    }
+
+}
+
+function startClock() {
+    timeLeft = true;
+    time = 15;
+    $("#timer").text("Time Remaining: 00:" + time);
+    intervalId = setInterval(count, 1000);
+}
+
+function checkAnswer(chosenAnswer) {
+
+    if(timeLeft) {
+    clearInterval(intervalId);
+    timeLeft = false;
+
+    correctAnswer = triviaArr[index].answer;
+    correctChoice = triviaArr[index].choices[correctAnswer];
+
+    if(chosenAnswer === correctAnswer) {
+        $("#question").text("That's Correct!!");
+        answeredCorrect++;
+    } else {
+        $("#question").text("Wrong!! The correct answer is: " + correctChoice);
+        answeredIncorrect++;
+    }
+
+    reset();
+    index++;
+    setTimeout(displayQA,5000);
+    }
+}
+
+function reset() {
+
+    $("#answer-0").remove();
+    $("#answer-1").remove();
+    $("#answer-2").remove();
+    $("#answer-3").remove();
+}
+
+function count() {
+    time--;
+
+    if (time < 10) {
+        time = "0" + time;
+    }
+
+    if (time >= 0) {
+        $("#timer").text("Time Remaining: 00:" + time);
+    } else {
+        timeUp();
+    }    
+}
+
+function timeUp() {
+    $("#question").text("Time's Up!!");
+    clearInterval(intervalId);
+    timeLeft = false;
+    setTimeout(displayQA,5000);
+}
+
+function gameOver() {
+    console.log("Game Over");
+
+}
