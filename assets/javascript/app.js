@@ -69,6 +69,7 @@ var audio = new Audio('../audio/office.mp3');
 audio.play();
 
 $("#start-btn").on("click",displayQA);
+//$(document).on("click", "#start-btn", displayQA);
 $(document).on("click", "#answer-0", function() {
     checkAnswer(0);
 })
@@ -80,6 +81,9 @@ $(document).on("click", "#answer-2", function() {
 })
 $(document).on("click", "#answer-3", function() {
     checkAnswer(3);
+})
+$(document).on("click", "#start-new-btn", function() {
+    startNewGame();
 })
 
 
@@ -174,11 +178,29 @@ function timeUp() {
 
 function gameOver() {
 
-    $("#timer").hide();
-    $("#start-btn").show();
+    $("#timer").empty();
+    var startNewButton = '<button type="button" class="btn btn-light" id="start-new-btn">Start New Game</button>';
+    $(".answer-main").append(startNewButton);
     $("#question").text("Game Over!!  Here's how you did!");
     $("#correct").html("<h4>Correct Answers: " + answeredCorrect + "</h4>")
     $("#incorrect").html("<h4>Incorrect Answers: " + answeredIncorrect + "</h4>")
     $("#unanswered").html("<h4>Unanswered: " + unanswered + "</h4>")
+}
 
+function startNewGame() {
+
+    console.log("Hit start new game");
+    index=0;
+    answeredCorrect = 0;
+    answeredIncorrect = 0;
+    unanswered = 0;
+
+    $("#correct").empty();
+    $("#incorrect").empty();
+    $("#unanswered").empty();
+    $("#startNewButton").remove();
+
+    $("#start-new-btn").remove();
+
+    displayQA();
 }
