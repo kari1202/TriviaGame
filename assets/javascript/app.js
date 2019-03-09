@@ -99,6 +99,10 @@ function displayQA() {
         console.log(answerButton);
     }
 
+    if (index > triviaArr.length) {
+        gameOver();
+    }
+
 }
 
 function startClock() {
@@ -126,17 +130,20 @@ function checkAnswer(chosenAnswer) {
     }
 
     reset();
-    index++;
-    setTimeout(displayQA,5000);
+
     }
 }
 
 function reset() {
 
+    index++;
+
     $("#answer-0").remove();
     $("#answer-1").remove();
     $("#answer-2").remove();
     $("#answer-3").remove();
+
+    setTimeout(displayQA,5000);
 }
 
 function count() {
@@ -157,10 +164,11 @@ function timeUp() {
     $("#question").text("Time's Up!!");
     clearInterval(intervalId);
     timeLeft = false;
-    setTimeout(displayQA,5000);
+    reset();
 }
 
 function gameOver() {
+    $("#question").text("Game Over!!  Here's how you did!");
     console.log("Game Over");
 
 }
