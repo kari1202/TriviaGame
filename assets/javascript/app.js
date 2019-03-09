@@ -65,8 +65,7 @@ var correctAnswer;
 var correctChoice;
 var timeLeft = true;
 
-var audio = new Audio('../audio/office.mp3');
-audio.play();
+//var audio = new Audio("office.mp3");
 
 $("#start-btn").on("click",displayQA);
 //$(document).on("click", "#start-btn", displayQA);
@@ -85,9 +84,6 @@ $(document).on("click", "#answer-3", function() {
 $(document).on("click", "#start-new-btn", function() {
     startNewGame();
 })
-
-
-
 
 
 function displayQA() {
